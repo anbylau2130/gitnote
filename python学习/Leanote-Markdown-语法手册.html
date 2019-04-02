@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="tool" content="leanote-desktop-app">
+<title>Leanote Markdown 语法手册</title>
+<style>
+.tab{font-size:12px; margin-bottom: 10px;}
+.tab a{cursor:pointer;cursor:pointer;display:inline-block;margin-right:10px;color:#000}#tab-html{color:#ccc}
+
+.content-container .content-html{visibility: hidden;}
+.content-container.html .content-markdown{display:none}
+.content-container.html .content-html{display:block; visibility: visible;}
+.content-container.html #tab-markdown{color:#ccc}
+.content-container.html #tab-html{color:#000}
+.content-markdown {overflow: auto;}
+textarea {display: none;}
+
+*{font-family:"lucida grande","lucida sans unicode",lucida,helvetica,"Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;}
+
+body {
+  margin: 0;
+}
+
+/*公用文字样式*/
+h1{font-size:30px}h2{font-size:24px}h3{font-size:18px}h4{font-size:14px}
+.note-container{
+    width:850px; 
+    margin:auto;
+    padding: 10px 20px;
+    box-shadow: 1px 1px 10px #eee;
+}
+#title {
+  margin: 0;
+}
+table {
+    margin-bottom: 16px;
+    border-collapse: collapse;
+}
+table th, table td {
+    padding: 6px 13px;
+    border: 1px solid #ddd;
+}
+table th {
+    font-weight: bold;
+}
+
+table tr {
+    background-color: none;
+    border-top: 1px solid #ccc;
+}
+table tr:nth-child(2n) {
+    background-color: rgb(247, 247, 249);
+}
+.mce-item-table, .mce-item-table td, .mce-item-table th, .mce-item-table caption {
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+  padding: 6px 13px;
+}
+blockquote {
+  border-left-width:10px;
+  background-color:rgba(128,128,128,0.05);
+  border-top-right-radius:5px;
+  border-bottom-right-radius:5px;
+  padding:15px 20px;
+  border-left:5px solid rgba(128,128,128,0.075);
+}
+blockquote p {
+  margin-bottom:1.1em;
+  font-size:1em;
+  line-height:1.45
+}
+blockquote ul:last-child,blockquote ol:last-child {
+  margin-bottom:0
+}
+pre {
+  padding: 18px;
+  background-color: #f7f7f9;
+  border: 1px solid #e1e1e8;
+  border-radius: 3px;
+  display: block;
+}
+code {
+  padding: 2px 4px;
+  font-size: 90%;
+  color: #c7254e;
+  white-space: nowrap;
+  background-color: #f9f2f4;
+  border-radius: 4px;
+}
+.footnote {
+  vertical-align: top;
+  position: relative;
+  top: -0.5em;
+  font-size: .8em;
+}
+
+hr {
+  margin:2em 0
+}
+img {
+  max-width:100%;
+  display: block;
+  margin: auto;
+}
+pre {
+  word-break:break-word
+}
+p,pre,pre.prettyprint,blockquote {
+  margin:0 0 1.1em
+}
+hr {
+  margin:2em 0
+}
+img {
+  max-width:100%
+}
+.sequence-diagram,.flow-chart {
+  text-align:center;
+  margin-bottom:1.1em
+}
+.sequence-diagram text,.flow-chart text {
+  font-size:15px !important;
+  font-family:"Source Sans Pro",sans-serif !important
+}
+.sequence-diagram [fill="#ffffff"],.flow-chart [fill="#ffffff"] {
+  fill:#f6f6f6
+}
+.sequence-diagram [stroke="#000000"],.flow-chart [stroke="#000000"] {
+  stroke:#3f3f3f
+}
+.sequence-diagram text[stroke="#000000"],.flow-chart text[stroke="#000000"] {
+  stroke:none
+}
+.sequence-diagram [fill="#000"],.flow-chart [fill="#000"],.sequence-diagram [fill="#000000"],.flow-chart [fill="#000000"],.sequence-diagram [fill="black"],.flow-chart [fill="black"] {
+  fill:#3f3f3f
+}
+ul,ol {
+  margin-bottom:1.1em
+}
+ul ul,ol ul,ul ol,ol ol {
+  margin-bottom:1.1em
+}
+kbd {
+  padding:.1em .6em;
+  border:1px solid rgba(63,63,63,0.25);
+  -webkit-box-shadow:0 1px 0 rgba(63,63,63,0.25);
+  box-shadow:0 1px 0 rgba(63,63,63,0.25);
+  font-size:.7em;
+  font-family:sans-serif;
+  background-color:#fff;
+  color:#333;
+  border-radius:3px;
+  display:inline-block;
+  margin:0 .1em;
+  white-space:nowrap
+}
+.toc ul {
+  list-style-type:none;
+  margin-bottom:15px
+}
+.m-todo-item {
+  list-style: none;
+}
+pre code {
+  padding: 0;
+  color: inherit;
+  white-space: pre-wrap;
+  background-color: inherit;
+  border-radius: 0;
+}
+</style>
+<!-- 该css供自定义样式 -->
+<link href="../leanote-markdown.css" rel="stylesheet">
+</head>
+
+<body>
+
+	<div class="note-container">
+		<h1 class="title" id="leanote-title">Leanote Markdown 语法手册</h1>
+		<div class="content-container html" id="content-container">
+			<!-- 切换 -->
+			<div class="tab"><a id="tab-markdown">Markdown</a><a id="tab-html">HTML</a></div>
+			<textarea id="leanote-content-markdown"># Welcome to Leanote! 欢迎来到Leanote!
+ 
+## 1. 排版
+ 
+**粗体** *斜体* 
+ 
+~~这是一段错误的文本。~~
+ 
+引用:
+ 
+> 引用Leanote官方的话, 为什么要做Leanote, 原因是...
+ 
+有充列表:
+ 1. 支持Vim
+ 2. 支持Emacs
+ 
+无序列表:
+ 
+ - 项目1
+ - 项目2
+ 
+ 
+## 2. 图片与链接
+ 
+图片:
+![leanote](http://leanote.com/images/logo/leanote_icon_blue.png)
+链接:
+ 
+[这是去往Leanote官方博客的链接](http://leanote.leanote.com)
+ 
+## 3. 标题
+ 
+以下是各级标题, 最多支持5级标题
+ 
+```
+# h1
+## h2
+### h3
+#### h4
+##### h4
+###### h5
+```
+ 
+## 4. 代码
+ 
+示例:
+ 
+    function get(key) {
+        return m[key];
+    }
+    
+代码高亮示例:
+ 
+``` javascript
+/**
+* nth element in the fibonacci series.
+* @param n >= 0
+* @return the nth element, >= 0.
+*/
+function fib(n) {
+  var a = 1, b = 1;
+  var tmp;
+  while (--n >= 0) {
+    tmp = a;
+    a += b;
+    b = tmp;
+  }
+  return a;
+}
+ 
+document.write(fib(10));
+```
+ 
+```python
+class Employee:
+   empCount = 0
+ 
+   def __init__(self, name, salary):
+        self.name = name
+        self.salary = salary
+        Employee.empCount += 1
+```
+
+    
+
+ 
+# 5. Markdown 扩展
+ 
+Markdown 扩展支持:
+ 
+* 表格
+* 定义型列表
+* Html 标签
+* 脚注
+* todo list
+* 目录
+* 时序图与流程图
+* MathJax 公式
+ 
+## 5.1 表格
+ 
+Item     | Value
+-------- | ---
+Computer | \$1600
+Phone    | \$12
+Pipe     | \$1
+ 
+可以指定对齐方式, 如Item列左对齐, Value列右对齐, Qty列居中对齐
+ 
+| Item     | Value | Qty   |
+| :------- | ----: | :---: |
+| Computer | \$1600 |  5    |
+| Phone    | \$12   |  12   |
+| Pipe     | \$1    |  234  |
+ 
+ 
+## 5.2 定义型列表
+ 
+名词 1
+:   定义 1（左侧有一个可见的冒号和四个不可见的空格）
+ 
+代码块 2
+:   这是代码块的定义（左侧有一个可见的冒号和四个不可见的空格）
+ 
+        代码块（左侧有八个不可见的空格）
+ 
+## 5.3 Html 标签
+ 
+支持在 Markdown 语法中嵌套 Html 标签，譬如，你可以用 Html 写一个纵跨两行的表格：
+ 
+    <table>
+        <tr>
+            <th rowspan="2">值班人员</th>
+            <th>星期一</th>
+            <th>星期二</th>
+            <th>星期三</th>
+        </tr>
+        <tr>
+            <td>李强</td>
+            <td>张明</td>
+            <td>王平</td>
+        </tr>
+    </table>
+ 
+ 
+<table>
+    <tr>
+        <th rowspan="2">值班人员</th>
+        <th>星期一</th>
+        <th>星期二</th>
+        <th>星期三</th>
+    </tr>
+    <tr>
+        <td>李强</td>
+        <td>张明</td>
+        <td>王平</td>
+    </tr>
+</table>
+ 
+**提示**, 如果想对图片的宽度和高度进行控制, 你也可以通过img标签, 如:
+ 
+<img src="http://leanote.com/images/logo/leanote_icon_blue.png" width="50px" />
+ 
+## 5.4 脚注
+ 
+Leanote[^footnote]来创建一个脚注
+  [^footnote]: Leanote是一款强大的开源云笔记产品.
+  
+## 5.5 todo list
+ 
+Leanote 近期任务安排:
+ 
+- [x] bbs 维护
+- [ ] Desktop 发布新版
+- [x] Markdown编辑器添加Todo list
+- [x] 修复白屏问题
+- [ ] 修复issue3
+- [ ] Leanote 维护
+- [ ] 修复issue4
+ 
+## 5.6 目录
+ 
+通过 `[TOC]` 在文档中插入目录, 如:
+ 
+[TOC]
+ 
+
+## 5.7 时序图与流程图
+``` sequence
+Alice->Bob: Hello Bob, how are you?
+Note right of Bob: Bob thinks
+Bob-->Alice: I am good thanks!
+```
+ 
+
+流程图:
+ 
+```flow
+st=>start: Start
+e=>end
+op=>operation: My Operation
+cond=>condition: Yes or No?
+ 
+st->op->cond
+cond(yes)->e
+cond(no)->op
+```
+ 
+> **提示:** 更多关于时序图与流程图的语法请参考:
+ 
+> - [时序图语法](http://bramp.github.io/js-sequence-diagrams/)
+> - [流程图语法](http://adrai.github.io/flowchart.js)
+ 
+## 5.8 MathJax 公式
+ 
+$ 表示行内公式： 
+ 
+质能守恒方程可以用一个很简洁的方程式 $E=mc^2$ 来表达。
+ 
+$ 表示整行公式：
+ 
+$\sum_{i=1}^n a_i=0$
+ 
+$f(x_1,x_x,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2 $
+ 
+$\sum^{j-1}_{k=0}{\widehat{\gamma}_{kj} z_k}$
+ 
+更复杂的公式:
+$
+\begin{eqnarray}
+\vec\nabla \times (\vec\nabla f) & = & 0  \cdots\cdots梯度场必是无旋场\\
+\vec\nabla \cdot(\vec\nabla \times \vec F) & = & 0\cdots\cdots旋度场必是无散场\\
+\vec\nabla \cdot (\vec\nabla f) & = & {\vec\nabla}^2f\\
+\vec\nabla \times(\vec\nabla \times \vec F) & = & \vec\nabla(\vec\nabla \cdot \vec F) - {\vec\nabla}^2 \vec F\\
+\end{eqnarray}
+$
+ 
+访问 [MathJax](http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference) 参考更多使用方法。</textarea>
+			<!-- markdown -->
+			<pre class="content-markdown"># Welcome to Leanote! 欢迎来到Leanote!
+ 
+## 1. 排版
+ 
+**粗体** *斜体* 
+ 
+~~这是一段错误的文本。~~
+ 
+引用:
+ 
+> 引用Leanote官方的话, 为什么要做Leanote, 原因是...
+ 
+有充列表:
+ 1. 支持Vim
+ 2. 支持Emacs
+ 
+无序列表:
+ 
+ - 项目1
+ - 项目2
+ 
+ 
+## 2. 图片与链接
+ 
+图片:
+![leanote](http://leanote.com/images/logo/leanote_icon_blue.png)
+链接:
+ 
+[这是去往Leanote官方博客的链接](http://leanote.leanote.com)
+ 
+## 3. 标题
+ 
+以下是各级标题, 最多支持5级标题
+ 
+```
+# h1
+## h2
+### h3
+#### h4
+##### h4
+###### h5
+```
+ 
+## 4. 代码
+ 
+示例:
+ 
+    function get(key) {
+        return m[key];
+    }
+    
+代码高亮示例:
+ 
+``` javascript
+/**
+* nth element in the fibonacci series.
+* @param n >= 0
+* @return the nth element, >= 0.
+*/
+function fib(n) {
+  var a = 1, b = 1;
+  var tmp;
+  while (--n >= 0) {
+    tmp = a;
+    a += b;
+    b = tmp;
+  }
+  return a;
+}
+ 
+document.write(fib(10));
+```
+ 
+```python
+class Employee:
+   empCount = 0
+ 
+   def __init__(self, name, salary):
+        self.name = name
+        self.salary = salary
+        Employee.empCount += 1
+```
+
+    
+
+ 
+# 5. Markdown 扩展
+ 
+Markdown 扩展支持:
+ 
+* 表格
+* 定义型列表
+* Html 标签
+* 脚注
+* todo list
+* 目录
+* 时序图与流程图
+* MathJax 公式
+ 
+## 5.1 表格
+ 
+Item     | Value
+-------- | ---
+Computer | \$1600
+Phone    | \$12
+Pipe     | \$1
+ 
+可以指定对齐方式, 如Item列左对齐, Value列右对齐, Qty列居中对齐
+ 
+| Item     | Value | Qty   |
+| :------- | ----: | :---: |
+| Computer | \$1600 |  5    |
+| Phone    | \$12   |  12   |
+| Pipe     | \$1    |  234  |
+ 
+ 
+## 5.2 定义型列表
+ 
+名词 1
+:   定义 1（左侧有一个可见的冒号和四个不可见的空格）
+ 
+代码块 2
+:   这是代码块的定义（左侧有一个可见的冒号和四个不可见的空格）
+ 
+        代码块（左侧有八个不可见的空格）
+ 
+## 5.3 Html 标签
+ 
+支持在 Markdown 语法中嵌套 Html 标签，譬如，你可以用 Html 写一个纵跨两行的表格：
+ 
+    <table>
+        <tr>
+            <th rowspan="2">值班人员</th>
+            <th>星期一</th>
+            <th>星期二</th>
+            <th>星期三</th>
+        </tr>
+        <tr>
+            <td>李强</td>
+            <td>张明</td>
+            <td>王平</td>
+        </tr>
+    </table>
+ 
+ 
+<table>
+    <tr>
+        <th rowspan="2">值班人员</th>
+        <th>星期一</th>
+        <th>星期二</th>
+        <th>星期三</th>
+    </tr>
+    <tr>
+        <td>李强</td>
+        <td>张明</td>
+        <td>王平</td>
+    </tr>
+</table>
+ 
+**提示**, 如果想对图片的宽度和高度进行控制, 你也可以通过img标签, 如:
+ 
+<img src="http://leanote.com/images/logo/leanote_icon_blue.png" width="50px" />
+ 
+## 5.4 脚注
+ 
+Leanote[^footnote]来创建一个脚注
+  [^footnote]: Leanote是一款强大的开源云笔记产品.
+  
+## 5.5 todo list
+ 
+Leanote 近期任务安排:
+ 
+- [x] bbs 维护
+- [ ] Desktop 发布新版
+- [x] Markdown编辑器添加Todo list
+- [x] 修复白屏问题
+- [ ] 修复issue3
+- [ ] Leanote 维护
+- [ ] 修复issue4
+ 
+## 5.6 目录
+ 
+通过 `[TOC]` 在文档中插入目录, 如:
+ 
+[TOC]
+ 
+
+## 5.7 时序图与流程图
+``` sequence
+Alice->Bob: Hello Bob, how are you?
+Note right of Bob: Bob thinks
+Bob-->Alice: I am good thanks!
+```
+ 
+
+流程图:
+ 
+```flow
+st=>start: Start
+e=>end
+op=>operation: My Operation
+cond=>condition: Yes or No?
+ 
+st->op->cond
+cond(yes)->e
+cond(no)->op
+```
+ 
+> **提示:** 更多关于时序图与流程图的语法请参考:
+ 
+> - [时序图语法](http://bramp.github.io/js-sequence-diagrams/)
+> - [流程图语法](http://adrai.github.io/flowchart.js)
+ 
+## 5.8 MathJax 公式
+ 
+$ 表示行内公式： 
+ 
+质能守恒方程可以用一个很简洁的方程式 $E=mc^2$ 来表达。
+ 
+$ 表示整行公式：
+ 
+$\sum_{i=1}^n a_i=0$
+ 
+$f(x_1,x_x,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2 $
+ 
+$\sum^{j-1}_{k=0}{\widehat{\gamma}_{kj} z_k}$
+ 
+更复杂的公式:
+$
+\begin{eqnarray}
+\vec\nabla \times (\vec\nabla f) & = & 0  \cdots\cdots梯度场必是无旋场\\
+\vec\nabla \cdot(\vec\nabla \times \vec F) & = & 0\cdots\cdots旋度场必是无散场\\
+\vec\nabla \cdot (\vec\nabla f) & = & {\vec\nabla}^2f\\
+\vec\nabla \times(\vec\nabla \times \vec F) & = & \vec\nabla(\vec\nabla \cdot \vec F) - {\vec\nabla}^2 \vec F\\
+\end{eqnarray}
+$
+ 
+访问 [MathJax](http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference) 参考更多使用方法。</pre>
+			<!-- html -->
+			<div class="content-html" id="leanote-content-html"></div>
+		</div>
+	</div>
+
+<!-- 该js供其它处理 -->
+<script src="../leanote-markdown.js"></script>
+<script src="http://leanote.github.io/markdown-to-html/markdown-to-html.min.js"></script>
+<script>
+function init() {
+	markdownToHtml(document.getElementById('leanote-content-markdown').value, document.getElementById('leanote-content-html'), function(html) {
+		// 解析后执行
+		if(window.markdownParsed) {
+			window.markdownParsed(html);
+		}
+	});
+	var $m = document.getElementById('tab-markdown');
+	var $h = document.getElementById('tab-html');
+	var $cc = document.getElementById('content-container');
+	function toggleToHtml(isToHtml) {
+		$cc.className = isToHtml ? 'content-container html' : 'content-container';
+	}
+	$m.addEventListener('click', function() {
+		toggleToHtml(false);
+	});
+	$h.addEventListener('click', function() {
+		toggleToHtml(true);
+	});
+}
+
+// 如果不要自动解析html, notParseMarkdown在leanote-markdown.js中定义
+if(!window.notParseMarkdown) {
+	init();
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="tool" content="leanote-desktop-app">
+<title>2.特征预处理</title>
+<style>
+.tab{font-size:12px; margin-bottom: 10px;}
+.tab a{cursor:pointer;cursor:pointer;display:inline-block;margin-right:10px;color:#000}#tab-html{color:#ccc}
+
+.content-container .content-html{visibility: hidden;}
+.content-container.html .content-markdown{display:none}
+.content-container.html .content-html{display:block; visibility: visible;}
+.content-container.html #tab-markdown{color:#ccc}
+.content-container.html #tab-html{color:#000}
+.content-markdown {overflow: auto;}
+textarea {display: none;}
+
+*{font-family:"lucida grande","lucida sans unicode",lucida,helvetica,"Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;}
+
+body {
+  margin: 0;
+}
+
+/*公用文字样式*/
+h1{font-size:30px}h2{font-size:24px}h3{font-size:18px}h4{font-size:14px}
+.note-container{
+    width:850px; 
+    margin:auto;
+    padding: 10px 20px;
+    box-shadow: 1px 1px 10px #eee;
+}
+#title {
+  margin: 0;
+}
+table {
+    margin-bottom: 16px;
+    border-collapse: collapse;
+}
+table th, table td {
+    padding: 6px 13px;
+    border: 1px solid #ddd;
+}
+table th {
+    font-weight: bold;
+}
+
+table tr {
+    background-color: none;
+    border-top: 1px solid #ccc;
+}
+table tr:nth-child(2n) {
+    background-color: rgb(247, 247, 249);
+}
+.mce-item-table, .mce-item-table td, .mce-item-table th, .mce-item-table caption {
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+  padding: 6px 13px;
+}
+blockquote {
+  border-left-width:10px;
+  background-color:rgba(128,128,128,0.05);
+  border-top-right-radius:5px;
+  border-bottom-right-radius:5px;
+  padding:15px 20px;
+  border-left:5px solid rgba(128,128,128,0.075);
+}
+blockquote p {
+  margin-bottom:1.1em;
+  font-size:1em;
+  line-height:1.45
+}
+blockquote ul:last-child,blockquote ol:last-child {
+  margin-bottom:0
+}
+pre {
+  padding: 18px;
+  background-color: #f7f7f9;
+  border: 1px solid #e1e1e8;
+  border-radius: 3px;
+  display: block;
+}
+code {
+  padding: 2px 4px;
+  font-size: 90%;
+  color: #c7254e;
+  white-space: nowrap;
+  background-color: #f9f2f4;
+  border-radius: 4px;
+}
+.footnote {
+  vertical-align: top;
+  position: relative;
+  top: -0.5em;
+  font-size: .8em;
+}
+
+hr {
+  margin:2em 0
+}
+img {
+  max-width:100%;
+  display: block;
+  margin: auto;
+}
+pre {
+  word-break:break-word
+}
+p,pre,pre.prettyprint,blockquote {
+  margin:0 0 1.1em
+}
+hr {
+  margin:2em 0
+}
+img {
+  max-width:100%
+}
+.sequence-diagram,.flow-chart {
+  text-align:center;
+  margin-bottom:1.1em
+}
+.sequence-diagram text,.flow-chart text {
+  font-size:15px !important;
+  font-family:"Source Sans Pro",sans-serif !important
+}
+.sequence-diagram [fill="#ffffff"],.flow-chart [fill="#ffffff"] {
+  fill:#f6f6f6
+}
+.sequence-diagram [stroke="#000000"],.flow-chart [stroke="#000000"] {
+  stroke:#3f3f3f
+}
+.sequence-diagram text[stroke="#000000"],.flow-chart text[stroke="#000000"] {
+  stroke:none
+}
+.sequence-diagram [fill="#000"],.flow-chart [fill="#000"],.sequence-diagram [fill="#000000"],.flow-chart [fill="#000000"],.sequence-diagram [fill="black"],.flow-chart [fill="black"] {
+  fill:#3f3f3f
+}
+ul,ol {
+  margin-bottom:1.1em
+}
+ul ul,ol ul,ul ol,ol ol {
+  margin-bottom:1.1em
+}
+kbd {
+  padding:.1em .6em;
+  border:1px solid rgba(63,63,63,0.25);
+  -webkit-box-shadow:0 1px 0 rgba(63,63,63,0.25);
+  box-shadow:0 1px 0 rgba(63,63,63,0.25);
+  font-size:.7em;
+  font-family:sans-serif;
+  background-color:#fff;
+  color:#333;
+  border-radius:3px;
+  display:inline-block;
+  margin:0 .1em;
+  white-space:nowrap
+}
+.toc ul {
+  list-style-type:none;
+  margin-bottom:15px
+}
+.m-todo-item {
+  list-style: none;
+}
+pre code {
+  padding: 0;
+  color: inherit;
+  white-space: pre-wrap;
+  background-color: inherit;
+  border-radius: 0;
+}
+</style>
+<!-- 该css供自定义样式 -->
+<link href="../leanote-markdown.css" rel="stylesheet">
+</head>
+
+<body>
+
+	<div class="note-container">
+		<h1 class="title" id="leanote-title">2.特征预处理</h1>
+		<div class="content-container html" id="content-container">
+			<!-- 切换 -->
+			<div class="tab"><a id="tab-markdown">Markdown</a><a id="tab-html">HTML</a></div>
+			<textarea id="leanote-content-markdown"># 特征处理
+
+通过特定的统计方法(数学方法)将数据转换成算法要求的数据
+## 数值类型 标准缩放
+- 归一化 
+- 标准化
+- 缺失化
+
+## 类别型数据
+-  one-hot编码
+## 时间类型 
+-  时间切片
+
+# sklearn特征处理API
+
+ * sklearn.preprocessing
+## 归一化
+**特点**：通过对原始数据进行变化把<font color="red">数据映射到[0-1]之间</font>
+**目的**：使得某一个特征不会影响整个结果
+**缺点**：当数据有异常时，最大值和最小值对数据预测的准确的影响较大 ，只适合传统精确小数据场景
+
+
+![](2.特征预处理_files/5c49310a3f51ef608e000000.png)
+
+![](2.特征预处理_files/5c495b743f51ef608e000001.png)
+
+
+### API
+
+**sklearn归一化API**：sklearn.preprocessing.MinMaxScaler
+
+#### MinMaxScalar(feature_range(0,1),...)
+- 每个特征缩放到给定范围（默认[0-1]）
+
+####  MinMaxScaler.fit_transform(X)
+- X：numpy array格式的数据[n_samples,n_features]
+- 返回值:转换后的形状相同的array
+
+
+```
+from sklearn.preprocessing import MinMaxScaler
+ mm = MinMaxScaler(feature_range=(3,4))
+data = [
+    [90, 2, 40, 30],
+    [60, 4, 30, 100],
+    [75, 3, 30, 50]
+]
+
+result = mm.fit_transform(data)
+print(result)
+```
+![](2.特征预处理_files/5c4965e83f51ef608e000002.png)
+
+## 标准化
+**特点**：通过对原始数据进行变换把数据变换到<font color="red">均值为0，方差为1</font>范围内
+**优点**：在数据比较多的时候比较稳定
+如果出现异常点，由于具有一定数据量，少量的异常点对于平均值的影响并不大，从而方差变化较小
+![](2.特征预处理_files/5c49748e3f51ef608e000004.png)
+
+### API 
+标准化 API：sklearn.preprocessing.StandardScaler
+
+StandardScaler(...)
+
+#### StandardScaler.fit_transform(X)
+- x:numpy array格式的数据[n_samples,n_features]
+- 返回值:转换后的形状相同的array
+
+#### StandardScaler.mean_
+- 原始数据中每列特征的平均值
+
+#### StandardScaler.std_
+- 原始数据每列特征的方差
+ 
+```
+from sklearn.preprocessing import  StandardScaler
+
+ss=StandardScaler()
+data=[
+    [1,4,9],
+    [4,8,2],
+    [2,6,7]
+]
+result=ss.fit_transform(data)
+print(result)
+print(ss.mean_)
+print(ss.scale_)
+```
+![](2.特征预处理_files/5c497a7e3f51ef608e000006.png)
+
+## 缺失值处理
+
+### 删除
+
+删除会导致数据减少，不建议删除操作
+
+### 插补
+
+API：sklearn.preprocessing.Imputer(中值填补，中位数 填补)
+
+Imputer(missing_values="NaN",strategy="mean",axis=0)
+
+#### Imputer.fit_transform(X)
+- x:numpy array格式数据[n_samples,n_features]
+- 返回值：转换后的形状相同的array
+
+```
+from sklearn.preprocessing import Imputer
+im=Imputer(missing_values="NaN",strategy="mean",axis=0)
+data=[
+    [1,2,3,2,5],
+    [2,3,4,np.nan,6],
+    [3,4,5,6,7]
+]
+result=im.fit_transform(data)
+print(result)
+```
+![](2.特征预处理_files/5c497efd3f51ef608e000007.png)
+
+## 数据降维
+冗余：部分特征的相关度，容易小号计算性能
+噪声：部分特征对预测结果有影响
+
+### 特征选择
+    主要方法：
+    Filter（过滤式）：varlanceThreshold
+    Embedded（嵌入式）：正则化，决策树
+    Wrapper（包裹式）
+
+    
+
+#### Filter
+类库：sklearn.feature_selection.VarianceThreshold
+
+##### VarianceThreshold(threshold=0.0)
+删除所有低方差特征
+
+##### Vaiance.fit_transform(X)
+
+- X:numpy array格式的数据[n_samples,n_features]
+
+- 返回值：训练集差异低于threshold的特征将被删除
+
+- 默认值式保留所有非零方差特征，即删除所有样本中具有相同值的特征
+
+```
+    from sklearn.feature_selection import VarianceThreshold
+    selector = VarianceThreshold()
+    X = [
+        [0, 2, 0, 3],
+        [0, 1, 4, 3], 
+        [0, 1, 1, 3]
+    ]
+    data=selector.fit_transform(X)
+    print(data)
+```
+[[2 0]
+ [1 4]
+ [1 1]]
+ 
+
+### 主成分分析
+![](2.特征预处理_files/5c4a6afcee58b172b8000000.png)
+<font color="red">当特征数量达到上百的时候，考虑数据的简化</font>
+
+<font color="red">PCA本质</font>：一种分析，简化数据集的技术
+![](2.特征预处理_files/5c4a6c85ee58b172b8000001.png)
+<font color="red">目的</font>：数据维数压缩，尽可能降低原数据的维数，损失少量信息
+<font color="red">作用</font>：可以削减回归分析或者聚类分析中特征的数量
+
+类库：sklearn.decomposition.PCA
+
+#### PCA API
+##### PCA(n_components=None)
+- n_compoents 
+ - 小数：的范围在0-1之间一般情况下 保留数据的90%-95%
+ - 整数：减少到的特征数量，一般不指定证书
+- 将数据分解为低维数空间
+##### PCA.fit_transform(X)
+- X:numpy array格式的数据[n_samples,n_features]
+- 返回值：转换后指定维度的array
+
+
+```
+    from sklearn.decomposition import PCA
+    X=[
+        [2, 8,4,5],
+        [6,3,0,8],
+        [3, 4,9,1]
+    ]
+    p=PCA(n_components=0.9)
+    data=p.fit_transform(X)
+    print(data)
+```
+<font color=red>这些数据保留了原始数据90%的特征</font>
+![](2.特征预处理_files/5c4a705fee58b172b8000002.png)
+
+
+# 数据类型
+## 离散性数据
+由记录不同类别个体的数目所得到的数据,又称计数类型,所有这些数据全部都是整数，而且不能再细分，也不能进一步提高他们的精度
+
+
+## 连续性数据
+变量可以在某个返回内取任一数，即变量的取值可以是连续的，如：长度，时间，质量值等，这类证书通常是非整数，含又小数部分。
+
+注意：离散型是区间内不可分，连续型是区间内可分
+
+![](2.特征预处理_files/5c4ac260ee58b172b8000003.png)
+
+## 监督学习
+- 有目标值的预测
+## 无监督学习
+- 没有目标值
+
+分类：目标值离散型
+回归：目标值连续型 预测数据
+
+
+# 机器学习开发流程
+![](2.特征预处理_files/5c4ac531ee58b172b8000004.png)
+
+![](2.特征预处理_files/5c4ad2178a018a2525000001.png)</textarea>
+			<!-- markdown -->
+			<pre class="content-markdown"># 特征处理
+
+通过特定的统计方法(数学方法)将数据转换成算法要求的数据
+## 数值类型 标准缩放
+- 归一化 
+- 标准化
+- 缺失化
+
+## 类别型数据
+-  one-hot编码
+## 时间类型 
+-  时间切片
+
+# sklearn特征处理API
+
+ * sklearn.preprocessing
+## 归一化
+**特点**：通过对原始数据进行变化把<font color="red">数据映射到[0-1]之间</font>
+**目的**：使得某一个特征不会影响整个结果
+**缺点**：当数据有异常时，最大值和最小值对数据预测的准确的影响较大 ，只适合传统精确小数据场景
+
+
+![](2.特征预处理_files/5c49310a3f51ef608e000000.png)
+
+![](2.特征预处理_files/5c495b743f51ef608e000001.png)
+
+
+### API
+
+**sklearn归一化API**：sklearn.preprocessing.MinMaxScaler
+
+#### MinMaxScalar(feature_range(0,1),...)
+- 每个特征缩放到给定范围（默认[0-1]）
+
+####  MinMaxScaler.fit_transform(X)
+- X：numpy array格式的数据[n_samples,n_features]
+- 返回值:转换后的形状相同的array
+
+
+```
+from sklearn.preprocessing import MinMaxScaler
+ mm = MinMaxScaler(feature_range=(3,4))
+data = [
+    [90, 2, 40, 30],
+    [60, 4, 30, 100],
+    [75, 3, 30, 50]
+]
+
+result = mm.fit_transform(data)
+print(result)
+```
+![](2.特征预处理_files/5c4965e83f51ef608e000002.png)
+
+## 标准化
+**特点**：通过对原始数据进行变换把数据变换到<font color="red">均值为0，方差为1</font>范围内
+**优点**：在数据比较多的时候比较稳定
+如果出现异常点，由于具有一定数据量，少量的异常点对于平均值的影响并不大，从而方差变化较小
+![](2.特征预处理_files/5c49748e3f51ef608e000004.png)
+
+### API 
+标准化 API：sklearn.preprocessing.StandardScaler
+
+StandardScaler(...)
+
+#### StandardScaler.fit_transform(X)
+- x:numpy array格式的数据[n_samples,n_features]
+- 返回值:转换后的形状相同的array
+
+#### StandardScaler.mean_
+- 原始数据中每列特征的平均值
+
+#### StandardScaler.std_
+- 原始数据每列特征的方差
+ 
+```
+from sklearn.preprocessing import  StandardScaler
+
+ss=StandardScaler()
+data=[
+    [1,4,9],
+    [4,8,2],
+    [2,6,7]
+]
+result=ss.fit_transform(data)
+print(result)
+print(ss.mean_)
+print(ss.scale_)
+```
+![](2.特征预处理_files/5c497a7e3f51ef608e000006.png)
+
+## 缺失值处理
+
+### 删除
+
+删除会导致数据减少，不建议删除操作
+
+### 插补
+
+API：sklearn.preprocessing.Imputer(中值填补，中位数 填补)
+
+Imputer(missing_values="NaN",strategy="mean",axis=0)
+
+#### Imputer.fit_transform(X)
+- x:numpy array格式数据[n_samples,n_features]
+- 返回值：转换后的形状相同的array
+
+```
+from sklearn.preprocessing import Imputer
+im=Imputer(missing_values="NaN",strategy="mean",axis=0)
+data=[
+    [1,2,3,2,5],
+    [2,3,4,np.nan,6],
+    [3,4,5,6,7]
+]
+result=im.fit_transform(data)
+print(result)
+```
+![](2.特征预处理_files/5c497efd3f51ef608e000007.png)
+
+## 数据降维
+冗余：部分特征的相关度，容易小号计算性能
+噪声：部分特征对预测结果有影响
+
+### 特征选择
+    主要方法：
+    Filter（过滤式）：varlanceThreshold
+    Embedded（嵌入式）：正则化，决策树
+    Wrapper（包裹式）
+
+    
+
+#### Filter
+类库：sklearn.feature_selection.VarianceThreshold
+
+##### VarianceThreshold(threshold=0.0)
+删除所有低方差特征
+
+##### Vaiance.fit_transform(X)
+
+- X:numpy array格式的数据[n_samples,n_features]
+
+- 返回值：训练集差异低于threshold的特征将被删除
+
+- 默认值式保留所有非零方差特征，即删除所有样本中具有相同值的特征
+
+```
+    from sklearn.feature_selection import VarianceThreshold
+    selector = VarianceThreshold()
+    X = [
+        [0, 2, 0, 3],
+        [0, 1, 4, 3], 
+        [0, 1, 1, 3]
+    ]
+    data=selector.fit_transform(X)
+    print(data)
+```
+[[2 0]
+ [1 4]
+ [1 1]]
+ 
+
+### 主成分分析
+![](2.特征预处理_files/5c4a6afcee58b172b8000000.png)
+<font color="red">当特征数量达到上百的时候，考虑数据的简化</font>
+
+<font color="red">PCA本质</font>：一种分析，简化数据集的技术
+![](2.特征预处理_files/5c4a6c85ee58b172b8000001.png)
+<font color="red">目的</font>：数据维数压缩，尽可能降低原数据的维数，损失少量信息
+<font color="red">作用</font>：可以削减回归分析或者聚类分析中特征的数量
+
+类库：sklearn.decomposition.PCA
+
+#### PCA API
+##### PCA(n_components=None)
+- n_compoents 
+ - 小数：的范围在0-1之间一般情况下 保留数据的90%-95%
+ - 整数：减少到的特征数量，一般不指定证书
+- 将数据分解为低维数空间
+##### PCA.fit_transform(X)
+- X:numpy array格式的数据[n_samples,n_features]
+- 返回值：转换后指定维度的array
+
+
+```
+    from sklearn.decomposition import PCA
+    X=[
+        [2, 8,4,5],
+        [6,3,0,8],
+        [3, 4,9,1]
+    ]
+    p=PCA(n_components=0.9)
+    data=p.fit_transform(X)
+    print(data)
+```
+<font color=red>这些数据保留了原始数据90%的特征</font>
+![](2.特征预处理_files/5c4a705fee58b172b8000002.png)
+
+
+# 数据类型
+## 离散性数据
+由记录不同类别个体的数目所得到的数据,又称计数类型,所有这些数据全部都是整数，而且不能再细分，也不能进一步提高他们的精度
+
+
+## 连续性数据
+变量可以在某个返回内取任一数，即变量的取值可以是连续的，如：长度，时间，质量值等，这类证书通常是非整数，含又小数部分。
+
+注意：离散型是区间内不可分，连续型是区间内可分
+
+![](2.特征预处理_files/5c4ac260ee58b172b8000003.png)
+
+## 监督学习
+- 有目标值的预测
+## 无监督学习
+- 没有目标值
+
+分类：目标值离散型
+回归：目标值连续型 预测数据
+
+
+# 机器学习开发流程
+![](2.特征预处理_files/5c4ac531ee58b172b8000004.png)
+
+![](2.特征预处理_files/5c4ad2178a018a2525000001.png)</pre>
+			<!-- html -->
+			<div class="content-html" id="leanote-content-html"></div>
+		</div>
+	</div>
+
+<!-- 该js供其它处理 -->
+<script src="../leanote-markdown.js"></script>
+<script src="http://leanote.github.io/markdown-to-html/markdown-to-html.min.js"></script>
+<script>
+function init() {
+	markdownToHtml(document.getElementById('leanote-content-markdown').value, document.getElementById('leanote-content-html'), function(html) {
+		// 解析后执行
+		if(window.markdownParsed) {
+			window.markdownParsed(html);
+		}
+	});
+	var $m = document.getElementById('tab-markdown');
+	var $h = document.getElementById('tab-html');
+	var $cc = document.getElementById('content-container');
+	function toggleToHtml(isToHtml) {
+		$cc.className = isToHtml ? 'content-container html' : 'content-container';
+	}
+	$m.addEventListener('click', function() {
+		toggleToHtml(false);
+	});
+	$h.addEventListener('click', function() {
+		toggleToHtml(true);
+	});
+}
+
+// 如果不要自动解析html, notParseMarkdown在leanote-markdown.js中定义
+if(!window.notParseMarkdown) {
+	init();
+}
+</script>
+</body>
+</html>
