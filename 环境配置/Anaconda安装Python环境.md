@@ -89,4 +89,4 @@ conda config --set show_channel_urls yes
 
 
 ## 设置 Anaconda默认路径
-![](https://github.com/anbylau2130/gitnote/blob/master/环境配置/images/5c3c1464b8ed3759cb000000.png)
+![](https://raw.githubusercontent.com/anbylau2130/gitnote/master/环境配置/images/5c3c1464b8ed3759cb000000.png)
