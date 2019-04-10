@@ -1,4 +1,4 @@
-
+``` sql
 SELECT 
 a.sUpdVerNo,
 a.IsAllRecord as "全部记录",
@@ -96,7 +96,7 @@ LEFT JOIN tFraDataObjProp b ON a.sdataobjid =b.sdataobjid
 WHERE --a.sDatasetName='tFraDataObjProp' and 
 a.sUpdVerNo=(SELECT max(sUpdVerNo) FROM tFraDataObj WHERE sDatasetName=a.sDatasetName)
 ORDER BY a.sDatasetName,b.npropid
- 
+ ```
  
  
  
