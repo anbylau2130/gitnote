@@ -13,9 +13,70 @@
 
 # 接口
 
-|column1|column2|column3|
-|-|-|-|
-|content1|content2|content3|
+接口|接口方式|前台业务表|店务业务表|店务接口表|店务相关存储过程|传输过程|CMP6相关业务表|CMP6相关存储过程|CMP6金蝶/中台接口表
+要货|海信->金蝶|X|"Tshppurpurord
+Tshppurpurordplu"|||SOS7记账调用接收后处理过程，生成CMP6正式业务表和金蝶接口表|"tSfHxnPurOrd
+tSfHxnPurOrdPlu"|PSfHxn_IoSosRecAfter.RecAfter_ShpPurOrdAcc_L|"tSfHxnPurApply_Io、tSfHxnPurApply_IoHis
+tSfHxnPurApplyPlu_Io、tSfHxnPurApplyPlu_IoHis"
+收货通知单|金蝶->海信SOS|X|"tShpStoRecNote
+tShpStoRecNotePlu"|"tShpStoRecNote
+tShpStoRecNotePlu"|||||
+收货确认|海信->金蝶|X|"tShpStoOprRec
+tShpStoOprRecPlu "|||SOS7记账调用接收后处理过程，生成CMP6正式业务表和金蝶接口表|"tPurPurOrd
+tPurPurOrdPlu"|PSfHxn_IoSosRecAfter.RecAfter_ShpStoOprRec_L|tSfHxnStoOprRec_Io、tSfHxnStoOprRec_IoHis
+配送退货申请|海信->金蝶|X|"tShpDisRtnApplyPlu
+tShpDisRtnApply"|"tShpDisRtnApply
+tShpDisRtnApplyPlu"||SOS7记账调用接收后处理过程，生成CMP6正式业务表和金蝶接口表|"tSfHxnPurRtnOrd
+tSfHxnPurRtnOrdPlu"||"tSfHxnPurRtnOrd_Io
+tSfHxnPurRtnOrdPlu_Io"
+退货确认|金蝶->海信SOS|X|"tShpDisRtnApplyPlu
+tShpDisRtnApply"||||"tSfHxnPurRtnOrd、
+tSfHxnPurRtnOrdPlu"|PSfHxn_IoSosRecAfter.RecAfter_ShpPurRtnOrd_L|"tSfHxn_IoKD_PurRtnPluAudit
+tSfHxn_IoKD_PurRtnPluAuditHis"
+调拨|海信->金蝶|X|"tShpStkMovPlan
+tShpStkMovPlanPlu"|||SOS7记账调用接收后处理过程，生成CMP6正式业务表和金蝶接口表|"tSfHxnMovPlan、
+tSfHxnMovPlanPlu、tStkMovPlan、tStkMovPlanPlu"|PSfHxn_IoSosRecAfter.RecAfter_ShpMovPlan_L|"tSfHxnPurMovOrd_Io、tSfHxnPurMovOrdPlu_Io
+tSfHxnPurMovOrd_IoHis、tSfHxnPurMovOrdPlu_IoHis"
+盘点|海信->金蝶|X|"tShpStoOprChk
+tShpStoOprChkPlu
+tShpStoChkOrderRecord"|||SOS7记账调用接收后处理过程，生成CMP6正式业务表和金蝶接口表|tStoOprChk、tStoOprChkPlu等标准表|"PIos_SimShpRecAfter.RecAfter_ShpStoOprChkSim
+Trg_tStoOprChk_Hxn_KD_AU"|"tSfHxnStoStkDiff_Io、tSfHxnStoStkDiffPlu_Io
+tSfHxnStoStkDiff_IoHis、tSfHxnStoStkDiffPlu_IoHis"
+批发、试吃、领用|海信->金蝶|X|"tShpDisWslSal
+tShpDisWslSalPlu
+tShpDisWslSalPay"|||SOS7记账调用接收后处理过程，生成CMP6正式业务表和金蝶接口表|"tDisWslSal
+tDisWslSalPlu
+tDisWslSalLgst"|"Trg_tDisWslSal_KD_AU
+Trg_tDisWslSalRtn_KD_AU"|"tSfhxnShpSal
+tSfHxnShpSalPlu
+tSfhxnShpSal_IO
+tSfHxnShpSalPlu_IO
+tSfHxnShpSal_IoHis、tSfHxnShpSalPlu_IoHis"
+销售流水汇总|海信->金蝶|"Tsalsale
+Tsalsaleplu
+Tsalsalepay
+Tsalsaledsc
+Tsalsalegift
+tSalSaleYYYYMM
+tSaleSalePluYYYYMM"|"tSosSalSale
+tSosSalSalePlu 
+tSosSalSalePay
+TSossalsaledsc
+TSossalsalegift"|||SOS7记账调用接收后处理过程，生成CMP6正式业务表和金蝶接口表|"tSfHxnShpSal、
+tSfHxnShpSalPlu、
+tSfHxnShpSalCrt、tSysCloseAccJobHis
+tSosSalSale
+tSosSalSalePlu tSosSalSalePay"|PSfHxn_IoKDRecAfter.DealAutoSumShpSal|
+销售流水查询|中台->海信|"Tsalsale
+Tsalsaleplu
+Tsalsalepay"|"tSosSalSale
+tSosSalSalePlu 
+tSosSalSalePay"||||"tSfHxnSosSalSale
+tSfHxnSosSalSalePlu
+tSfHxnSosSalSalePay"||"tSfHxnSosSalSale
+tSfHxnSosSalSalePlu
+tSfHxnSosSalSalePay"
+
 
 
 ![title](https://raw.githubusercontent.com/anbylau2130/gitnoteImages/master/gitnoteImages/2019/04/10/1554883630637-1554883630711.png)
