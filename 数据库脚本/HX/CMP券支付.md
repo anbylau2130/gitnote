@@ -1,3 +1,4 @@
+``` sql
 SELECT 
 a.billno Pos单号,
 a.bizdate 单据日期,
@@ -44,3 +45,4 @@ plu.vipcardno ,
 pay.PayNo ,
 pay.PayTotal 
 ;﻿​
+```
