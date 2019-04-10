@@ -1,5 +1,5 @@
 # CMP 和 店务
 
-# CMP  hicmp,hicmphis
+1. CMP  hicmp,hicmphis
 
-# 店务  hisos,readhisos
+2. 店务  hisos,readhisos
