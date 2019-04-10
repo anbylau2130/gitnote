@@ -5,5 +5,5 @@
  - hicmphis 报表数据库
 
 2. 店务  
- - hisos,
- - readhisos
+ - hisos 系统数据库
+ - readhisos 报表数据库
